@@ -1,0 +1,20 @@
+body {
+    background-image: url("../img/bg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 97vh;
+    width: 98vw;
+}
+.signin{
+    color: rgba(80, 165, 204, 1);
+    font-weight: 1px;
+    font-size: 35px;
+}
+
+#signIn{
+    border: 1px solid ;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 90, 1);
+}
