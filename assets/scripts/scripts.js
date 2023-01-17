@@ -1,9 +1,19 @@
 let signin = document.getElementById('signin');
 let signup = document.getElementById('signup');
 let signupbtn=document.getElementById('sign');
-signup.style.display = 'none';
-signupbtn.addEventListener('click', function() {
-    signup.style.display='block'
-    signin.style.display='none'
-    console.log('taqtaq')
+let gotopost=document.getElementById('post');
+let gotocat=document.getElementById('categ');
+let category=document.getElementById('categories');
+let posts=document.getElementById('posts');
+
+
+// signup.style.display = 'none';
+category.style.display = 'none';
+gotocat.addEventListener('click', function() {
+    category.style.display='block'
+    posts.style.display='none'
+});
+gotopost.addEventListener('click', function() {
+    posts.style.display='block'
+    category.style.display='none'
 });

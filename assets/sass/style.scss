@@ -1,3 +1,6 @@
+$dark : rgba(0, 0, 90, 1);
+$light : rgba(80, 165, 204, 1);
+
 #siging{
     background-image: url("../img/bg.jpg");
     background-repeat: no-repeat;
@@ -7,28 +10,28 @@
     width: 98vw;
 }
 .signin{
-    color: rgba(80, 165, 204, 1);
+    color: $light;
     font-weight: 1px;
     font-size: 35px;
     
 }
 
 #signup, #signin{
-    border: 1px solid rgba(0, 0, 90, 1);
+    border: 1px solid $dark;
     border-radius: 20px;
     padding: 35px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 90, 1);
+    box-shadow: 0 8px 32px 0 $dark;
 }
 
 
 .input {
-    border-color: rgba(0, 0, 90, 1);
+    border-color: $dark;
     margin-top: -15px;
 }
 
 .signing {
-    color: rgba(0, 0, 90, 1);
-    border: 1px solid rgba(0, 0, 90, 1);
+    color: $dark;
+    border: 1px solid $dark;
     border-radius: 20px;
     width: 170px;
     padding: 8px;
@@ -36,8 +39,8 @@
 }
 
 .bth:hover {
-    background-color: rgba(80, 165, 204, 1);
-    color: rgba(0, 0, 90, 1);
+    background-color: $light;
+    color: $dark;
 }
 
 .signup {
@@ -49,13 +52,13 @@
 }
 
 .link {
-    color: rgba(0, 0, 90, 1);
+    color: $dark;
     text-decoration: none;
     
 }
 
 .link:hover {
-    color: rgba(80, 165, 204, 1);
+    color: $light;
     text-decoration: underline;
 }
 .dashboard{
@@ -77,8 +80,8 @@
 
 
 .navbar {
-    background-color: rgba(0, 0, 90, 1);
-    width: 100%;
+    background-color: $dark;
+    width: 100vw;
 }
 
 .logo {
@@ -101,26 +104,27 @@
 .btn {
     border-radius: 20px;
     margin-left: -45px;
+    margin-top: 5px;
 }
 
 .add-btn {
-    color: rgba(80, 165, 204, 1);
-    border: 1px solid rgba(80, 165, 204, 1);
+    color: $light;
+    border: 1px solid $light;
     border-radius: 20px;
     width: 150px;
     padding: 8px;
 }
 
 .add-btn:hover {
-    background-color: rgba(80, 165, 204, 1);
-    color: rgba(1, 35, 64, 1);
+    background-color: $dark;
+    color: white;
 }
 
 .input {
     border-radius: 20px;
 }
 .sidebar {
-    background-color: rgba(0, 0, 90, 1);
+    background-color: $dark;
 }
 
 .nav-link {
@@ -129,13 +133,13 @@
 
 .blue {
     border-radius: 50px;
-    margin-left: -25px;
+    margin-left: -26px;
 }
 
 .user {
-    background-color: rgba(0, 0, 90, 1);
-    width: 480px;
-    border: 3px solid rgba(80, 165, 204, 1);
+    background-color: $dark;
+    width: 465px;
+    border: 3px solid $light;
     border-radius: 50px;
 }
 
@@ -144,12 +148,21 @@
 }
 
 .line {
-    border-bottom: 1px solid rgba(80, 165, 204, 1);
+    border-bottom: 1px solid $light;
 }
+
+.search{
+    height: 40px;
+}
+.category{
+    border: 2px solid $dark;
+    width:150px;
+    border-radius: 20px;
+    color: $dark;
+    font-weight: bold;
+}
+
 @media only screen and (max-width: 600px) {
-    .sidebar {
-        display: none !important;
-    }
     .navbar{
         width: 156vw;
     }
