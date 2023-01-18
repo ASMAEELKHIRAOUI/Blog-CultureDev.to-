@@ -7,7 +7,6 @@ let category=document.getElementById('categories');
 let posts=document.getElementById('posts');
 
 
-// signup.style.display = 'none';
 category.style.display = 'none';
 gotocat.addEventListener('click', function() {
     category.style.display='block'

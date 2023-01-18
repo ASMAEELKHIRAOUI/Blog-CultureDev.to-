@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,7 +58,7 @@
                         <div class="stats col-3 text-light ms-2">
                             <h4 class="mt-2">Developers</h4>
                             <h4 class="mt-3"><?php 
-                            // counterUser() ?></h4>
+                            // counterUser() ?>33</h4>
                         </div>
                     </div>
                     <div class="user ms-4 col_4 row h-50 mt-2" id="categ">
@@ -61,7 +66,7 @@
                         <div class="stats col-3 text-light ms-2">
                             <h4 class="mt-2">Categories</h4>
                             <h4 class="mt-3"><?php 
-                            // counterUser() ?></h4>
+                            // counterUser() ?>54</h4>
                         </div>
                     </div>
                     <div class="user ms-4 col-4 row h-50 mt-2" id="post">
@@ -69,7 +74,7 @@
                         <div class="stats col-3 text-light ms-2">
                             <h4 class="mt-2">Posts/Articles</h4>
                             <h4 class="mt-3"><?php 
-                            // counterProduct() ?></h4>
+                            // counterProduct() ?>66</h4>
                         </div>
                     </div>
                 </stats>
@@ -109,8 +114,10 @@
             <thead>
                 <tr class="line">
                     <th class="col-1"></th>
-                    <th class="col-7">Articles</th>
-                    <th class="col-3">Category</th>
+                    <th class="col-2">Admin</th>
+                    <th class="col-2">Date & Time</th>
+                    <th class="col-4">Articles</th>
+                    <th class="col-2">Category</th>
                     <th class="col-1"></th>
                 </tr>
             </thead>
@@ -167,26 +174,6 @@
         <div class="row mt-4 ms-5 fs-5">
             <div class="category col-2 p-3 mx-auto">
                 <div class="d-flex justify-content-end"><a href="#"><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
-            </div>
-            <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
-            </div>
-            <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
-            </div>
-            <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
-            </div>
-            <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
-            </div>
-            <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a><i class="bi bi-x"></i></a></div>
                 <div>chi haja</div>
             </div>
         </div>
