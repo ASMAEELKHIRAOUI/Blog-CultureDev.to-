@@ -272,40 +272,19 @@ class Spectateur extends User {
             $_SESSION['id'] = $data['id'];
             echo"<script>alert('successfully');document.location='../pages/index.php'</script>";
         } else {
-            echo"<script>alert('incorrect inputs');document.location='../pages/signup.php'</script>";
+            echo"<script>alert('incorrect inputs');document.location='../pages/signin.php'</script>";
         }
     }
 
 
-    // public function loginAdmin() { 
-    //     $conn = new Database();
-
-    //     $sql = "SELECT * FROM `admin` WHERE email = ? AND password = ?;";
-    //     $stmt =  $conn->connect()->prepare($sql);
-    //     $stmt->execute([$this->email, $this->password]);
-    //     $admin = $stmt -> fetch(PDO::FETCH_ASSOC);
-    //     if ($stmt->rowCount() > 0) {
-            
-    //         $_SESSION['name'] = $admin['first_name'];
-    //         $_SESSION['last-name'] = $admin['last_name'];
-    //         $_SESSION['id'] = $admin['id'];
-    //         $_SESSION['roll'] = 'admin';
-
-    //         echo"<script>alert('successfully');document.location='../pages/dashboard.php'</script>";
-    //     } else {
-    //         echo"<script>alert('incorrect inputs');document.location='../pages/signin.php'</script>";
-    //     }
-    // }
-    
-
-    // public function logOut() {
-    //     if (isset($_SESSION['name'])) {
-    //         session_destroy();
-    //         // unset($_SESSION['name']);
-    //         // header('location:../pages/signin.php');
-    //         echo"<script>alert('successfully');document.location='../pages/signin.php'</script>";
-    //     }
-    // }
+    public function logout() {
+        if (isset($_SESSION['name'])) {
+            session_destroy();
+            // unset($_SESSION['name']);
+            // header('location:../pages/signin.php');
+            // echo"<script>alert('successfully');document.location='../pages/signin.php'</script>";
+        }
+    }
     
     
     // public function getSpectateur()

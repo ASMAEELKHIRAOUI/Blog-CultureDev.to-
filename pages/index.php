@@ -1,6 +1,22 @@
 <?php
-session_start();
+include '../classes/user.class.php';
+include '../classes/dashboard.php';
+$category = new Categories();
+$category->addCategory();
+$getcategory = new Database();
+$getcategory->getCategory('categories','*');
+$result=$getcategory->sql;
+$id = $_POST['id'];
+$getcategory->delete('categories',"id='$id'");
+// $categories= new Categories();
+// $categories->getCategories();
+// if(isset($_GET['action']) && $_GET['action'] === 'logout') logOut();
 
+// function logOut(){echo 'lahoula';
+//     $spectateur = new Spectateur();
+//     $spectateur->logout();
+//     header('location:../pages/signin.php');
+// }
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +28,7 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/sass/style.css"/>
-    <title>Origin Game - Dashboard</title>
+    <title>CultureDev - Dashboard</title>
 </head>
 
 <body class="dashboard">
@@ -40,7 +56,7 @@ session_start();
                             <li><button class="dropdown-item" type="button">Settings</button></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><form method="POST">
-                                <button class="dropdown-item" type="submit" name="logout">Logout</button>
+                                <button class="dropdown-item" type="submit" name="logout" href="../classes/user.class.php?&action=logout">Logout</button>
                                 </form>
                             </li>
                         </ul>
@@ -172,23 +188,26 @@ session_start();
             <a href="#modal-task-category" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Category</a>
         </div>
         <div class="row mt-4 ms-5 fs-5">
+            <?php  while ($row = $result->fetch(PDO::FETCH_ASSOC)) {?>
             <div class="category col-2 p-3 mx-auto">
-                <div class="d-flex justify-content-end"><a href="#"><i class="bi bi-x"></i></a></div>
-                <div>chi haja</div>
+                
+                <div class="d-flex justify-content-end"><a data-bs-toggle="modal" data-id="<?php echo $row['id']; ?>" href="#deleteModal" id="del" class="btn btn-danger btn-sm"><i class="bi bi-x"></i></a></div>
+                
+                <div><?php echo $row['categ'];?></div>
             </div>
-        </div>
+        <?php } ?></div>
         <div class="modal fade" id="modal-task-category">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="scripts.php" method="POST" id="form" enctype="multipart/form-data">
+                    <form method="POST" id="form" enctype="multipart/form-data">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Category</h5>
                             <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" id="task-id" name = 'id'>
+                            <input type="hidden" id="id" name = 'id'>
                             <div class="mb-3">
-                                <input class="form-control" id="text"></input>
+                                <input class="form-control" id="text" name='category'></input>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -199,6 +218,23 @@ session_start();
                 </div>
             </div>
         </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">HoldOOON!!!</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete this category?
+      </div>
+      <div class="modal-footer d-flex justify-content-between">
+        <button type="button" class="btn btn-secondary ms-5" data-bs-dismiss="modal">NO</button>
+        <button type="button" class="btn btn-primary">ofc</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="../assets/scripts/scripts.js"></script>
