@@ -97,12 +97,16 @@ include_once 'database.php';
 
 
         public function addPost(){
-            if (isset($_POST['submit'])) {
+            if (isset($_POST['save'])) {
                 $title = $_POST['title'];
                 $article = $_POST['article'];
-                $category = $_POST['title'];
+                $category = $_POST['categorySelect'];
+                $user = $_POST['user'];
+                $datetime = $_POST['datetime'];
+                $img = $_POST['image'];
                 $post = new Database();
-                $post->insert('posts',['categ'=>$category]);
+                $post->insert('post',['user'=>$user,'title'=>$title,'article'=>$article,'image'=>$img,'category'=>$category,'datetime'=>$datetime]);
+            
             }
         }
     }

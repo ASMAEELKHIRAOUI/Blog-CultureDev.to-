@@ -51,9 +51,9 @@ public function delete($table,$id){
 
 public $sql;
 
-public function getCategory($table,$rows="*",$where = null){
+public function get($table,$rows="*",$joins= null,$where = null){
     if ($where != null) {
-        $sql="SELECT $rows FROM $table WHERE $where";
+        $sql="SELECT $rows FROM $table $joins WHERE $where";
     }else{
         $sql="SELECT $rows FROM $table";
     }

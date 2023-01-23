@@ -2,7 +2,7 @@
 include '../classes/user.class.php';
 if(isset($_POST['signin'])){
     extract($_POST);
-$objet = new Spectateur($email, $password);
+$objet = new Admin($email, $password);
 $objet->login();
 }
 !isset($_SESSION['name']) ?: header('location:../pages/index.php');

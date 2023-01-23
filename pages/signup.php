@@ -2,7 +2,7 @@
 include '../classes/user.class.php';
 if(isset($_POST['signup'])){
     extract($_POST);
-$objet = new Spectateur($email, $password, $username);
+$objet = new Admin($email, $password, $username);
 $objet->signup();
 }
 

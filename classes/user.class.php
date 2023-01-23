@@ -223,7 +223,7 @@ abstract class User extends Database{
 }
 
 
-class Spectateur extends User {
+class Admin extends User {
     private $matchsReserved = array();
     //crud
 
