@@ -21,6 +21,7 @@ class Database{
       $pdo = $this->connection();
       $query = $pdo->prepare($sql);
       $query->execute();
+      header('location:../pages/index.php');
   }
   public function update($table,$para=array(),$id){
     $args = array();
@@ -45,6 +46,7 @@ public function delete($table,$id){
     $pdo = $this->connection();
       $query = $pdo->prepare($sql);
       $query->execute();
+      header('location:../pages/index.php');
 }
 
 public $sql;

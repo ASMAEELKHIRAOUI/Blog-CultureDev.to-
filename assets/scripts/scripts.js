@@ -16,3 +16,9 @@ gotopost.addEventListener('click', function() {
     posts.style.display='block'
     category.style.display='none'
 });
+
+function deleteCategory(id) {
+    document.getElementById("deleteButton").addEventListener('click',function () {
+        document.location.href="index.php?delete="+id;
+    })
+}

@@ -1,6 +1,6 @@
 <?php 
 include 'database.php';
-
+session_start();
 // class User extends Database{
 //     private $id;
 //     private $username;
@@ -280,7 +280,7 @@ class Spectateur extends User {
     public function logout() {
         if (isset($_SESSION['name'])) {
             session_destroy();
-            // unset($_SESSION['name']);
+            unset($_SESSION['name']);
             // header('location:../pages/signin.php');
             // echo"<script>alert('successfully');document.location='../pages/signin.php'</script>";
         }

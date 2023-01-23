@@ -50,6 +50,7 @@
 .link {
   color: rgb(0, 0, 90);
   text-decoration: none;
+  width: 100%;
 }
 
 .link:hover {

@@ -5,6 +5,7 @@ if(isset($_POST['signin'])){
 $objet = new Spectateur($email, $password);
 $objet->login();
 }
+!isset($_SESSION['name']) ?: header('location:../pages/index.php');
 
 
 ?>
