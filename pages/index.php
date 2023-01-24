@@ -53,6 +53,10 @@ $rowsadminspost=[];
 while($resultadminspostt=$resultadminspost->fetch(PDO::FETCH_ASSOC)){
     array_push($rowsadminspost,$resultadminspostt);
 };
+if(isset($_GET['deletepost'])){
+    $id = $_GET['deletepost'];
+    $getpost->delete('post',"id='$id'");
+}
 if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $getcategory->delete('categories',"id='$id'");
@@ -256,7 +260,7 @@ if(isset($_GET['delete'])){
                 <th class="col-1">
                     <div class="d-flex">
                         <a href="update.php?id='.$id.'"><i class="bi bi-pencil-square text-primary mt-2 fs-4"></i></a>
-                        <button data-bs-toggle="modal" data-bs-target="#deletepost" data-id="<?php echo $rowsadminspost[$i]['id']; ?>"  id="del" class="btn btn-sm" onclick="deletePost(<?= $rowsadminspost[$i]['id']?>)"><i class="bi bi-trash3 text-danger ms-2 mt-2 fs-4"></i></button>
+                        <button data-bs-toggle="modal" data-bs-target="#deletePost" data-id="<?php echo $rowsadminspost[$i]['id']; ?>"  id="del" class="btn btn-sm" onclick="deletePost(<?= $rowsadminspost[$i]['id']?>)"><i class="bi bi-trash3 text-danger ms-2 mt-2 fs-4"></i></button>
                     </div>
                 </th>
             </tbody>

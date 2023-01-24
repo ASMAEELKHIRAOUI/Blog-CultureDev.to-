@@ -33,6 +33,6 @@ function deleteCategory(id) {
 }
 function deletePost(id) {
     document.getElementById("deletePost").addEventListener('click',function () {
-        document.location.href="index.php?delete="+id;
+        document.location.href="index.php?deletepost="+id;
     })
 }
