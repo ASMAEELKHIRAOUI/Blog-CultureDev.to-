@@ -28,15 +28,11 @@ while($resultcat=$resultcategory->fetch(PDO::FETCH_ASSOC)){
 $getuser = new Database();
 $getuser->get('admin','*');
 $resultuser=$getuser->sql;
-// print_r($resultuser);
 $rowsuser=[];
 while($resultusers=$resultuser->fetch(PDO::FETCH_ASSOC)){
     array_push($rowsuser,$resultusers);
 };
 
-
-// print_r($rowsuser);
-// print_r($rowscategory);
 
 
 $getpost = new Database();
@@ -47,12 +43,12 @@ while($resultpostt=$resultpost->fetch(PDO::FETCH_ASSOC)){
     array_push($rowspost,$resultpostt);
 };
 $getadminspost = new Database();
-$getadminspost->get('post','id,title,article,image,category,datetime');
-$resultadminspost=$getadminspost->sql;
-$rowsadminspost=[];
-while($resultadminspostt=$resultadminspost->fetch(PDO::FETCH_ASSOC)){
-    array_push($rowsadminspost,$resultadminspostt);
-};
+$getadminspost->get('post','id,title,article,image,category,datetime','user='.$_SESSION["id"]);
+$rowsadminspost=$getadminspost->sql->fetchAll(PDO::FETCH_ASSOC);
+// $rowsadminspost=[];
+// while($resultadminspostt=$resultadminspost->fetch(PDO::FETCH_ASSOC)){
+//     array_push($rowsadminspost,$resultadminspostt);
+// };
 if(isset($_GET['deletepost'])){
     $id = $_GET['deletepost'];
     $getpost->delete('post',"id='$id'");
@@ -61,7 +57,20 @@ if(isset($_GET['delete'])){
     $id = $_GET['delete'];
     $getcategory->delete('categories',"id='$id'");
 }
+
+if (isset($_POST['Update'])) {
+    $id = $_POST['updateId'];
+    $title = $_POST['updateTitle'];
+    $article = $_POST['updateArticle'];
+    $categ = $_POST['updateCategory'];
+    $updatePost = new Database();
+    $updatePost->update('post',['title'=>$title,'article'=>$article,'category'=>$categ],"id='$id'");
+}
+
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +83,6 @@ if(isset($_GET['delete'])){
     <link rel="stylesheet" href="../assets/sass/style.css"/>
     <title>CultureDev - Dashboard</title>
 </head>
-
 <body class="dashboard">
     <header>
         <nav class="navbar navbar-expand navbar-light">
@@ -109,6 +117,7 @@ if(isset($_GET['delete'])){
             </div>
         </nav>
     </header>
+    <div id="dashboard">
     <container class="d-flex h-40 text-secondary">
         <div class="">
             <dash class="dash ms-2">
@@ -140,32 +149,76 @@ if(isset($_GET['delete'])){
                 </stats>
             </dash>
             <?php 
-            // if(isset($_SESSION['message'])){
-			// 		if ($_SESSION['message'] == 'Product has been deleted successfully !'){
+            if(isset($_SESSION['message'])){
+					if ($_SESSION['message'] == 'Product has been deleted successfully !'){
 			?>
 				<div class="alert alert-danger alert-dismissible fade show mt-2 ms-3">
 				<strong>Success!</strong>
 					<?php 
-						// echo $_SESSION['message']; 
-						// unset($_SESSION['message']);
+						echo $_SESSION['message']; 
+						unset($_SESSION['message']);
 					?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
 				</div>
 			<?php 
-        // } else{?>
+        } else{?>
 				<div class="alert alert-success alert-dismissible fade show mt-2 ms-3">
 				<strong>Success!</strong>
 					<?php 
-						// echo $_SESSION['message']; 
-						// unset($_SESSION['message']);
+						echo $_SESSION['message']; 
+						unset($_SESSION['message']);
 					?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
 				</div> 
 				<?php 
-            // }} ?>
+            }} ?>
             
         </div>
     </container>
+    </div>
+    <div id="postsUpdate">
+    <div class="container text-white">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="POST" id="postform">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Post</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="updateId" name = 'updateId' value="<?php echo $rowsadminspost[$_GET['update']]['id']; ?>">
+                    <input type="hidden" id="updateDatetime" name = 'updateDatetime' value="<?php echo date("Y/m/d h:i:sa"); ?>">
+                    <input type="hidden" id="updateUser" name = 'updateUser' value="<?php if(isset($_SESSION["id"]))echo $_SESSION["id"]; ?>">
+                    <div class="mb-3">
+                        <label class="col-form-label">Title:</label>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="updateTitle" value="<?php if(isset($_GET['update'])){ echo $rowsadminspost[$_GET['update']]['title']; ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Article:</label>
+                        <textarea class="form-control" id="updateArticle" name="updateArticle"><?php echo $rowsadminspost[$_GET['update']]['article']; }?></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Category</label name priority>
+                        <select class="form-select" id="updateCategory" name="updateCategory">
+                            <option value="">pls select</option>
+                            <?php for($i=0;$i<count($rowscategory);$i++) {?>
+                            <option value="<?= $rowscategory[$i]['id']?>"<?php if($rowspost[$_GET['update']]['category']==$rowscategory[$i]['id'])echo 'selected';?>><?php echo $rowscategory[$i]['categ'];?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input type="file" class="form-control" id="image" name ='image'/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
+                    <button type="submit" name="Update" class="btn btn-primary task-action-btn ms-1" id="task-save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    </div>
     <div id="posts">
         <div class="d-flex justify-content-end mt-3">
             <a href="#modal-task" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
@@ -259,8 +312,8 @@ if(isset($_GET['delete'])){
                 <th class="col-1"><?php foreach($rowscategory as $categoryy){if($rowspost[$i]['category']==$categoryy['id'])echo $categoryy['categ'];}?></th>
                 <th class="col-1">
                     <div class="d-flex">
-                        <a href="update.php?id='.$id.'"><i class="bi bi-pencil-square text-primary mt-2 fs-4"></i></a>
-                        <button data-bs-toggle="modal" data-bs-target="#deletePost" data-id="<?php echo $rowsadminspost[$i]['id']; ?>"  id="del" class="btn btn-sm" onclick="deletePost(<?= $rowsadminspost[$i]['id']?>)"><i class="bi bi-trash3 text-danger ms-2 mt-2 fs-4"></i></button>
+                        <a href="index.php?update=<?php echo $i; ?>" class="update"><i class="bi bi-pencil-square text-primary mt-2 fs-4"></i></a>
+                        <button data-bs-toggle="modal" data-bs-target="#deletePost" data-id="<?php echo $rowsadminspost[$i]['id']; ?>"  id="del" class="btn btn-sm ms-3" onclick="deletePost(<?= $rowsadminspost[$i]['id']?>)"><i class="bi bi-trash3 text-danger ms-2 mt-2 fs-4"></i></button>
                     </div>
                 </th>
             </tbody>

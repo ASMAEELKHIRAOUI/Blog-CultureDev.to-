@@ -37,6 +37,8 @@ class Database{
     $pdo = $this->connection();
       $query = $pdo->prepare($sql);
       $query->execute();
+      header('location:../pages/index.php');
+      $_SESSION['message'] = 'It has been updated successfully !';
 }
 
 public function delete($table,$id){
@@ -47,13 +49,14 @@ public function delete($table,$id){
       $query = $pdo->prepare($sql);
       $query->execute();
       header('location:../pages/index.php');
+      $_SESSION['message'] = 'It has been deleted successfully !';
 }
 
 public $sql;
 
-public function get($table,$rows="*",$joins= null,$where = null){
+public function get($table,$rows="*",$where = null){
     if ($where != null) {
-        $sql="SELECT $rows FROM $table $joins WHERE $where";
+        $sql="SELECT $rows FROM $table WHERE $where";
     }else{
         $sql="SELECT $rows FROM $table";
     }
