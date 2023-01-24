@@ -221,7 +221,7 @@ if (isset($_POST['Update'])) {
     </div>
     <div id="posts">
         <div class="d-flex justify-content-end mt-3">
-            <a href="#modal-task" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
+            <a href="#modal-post" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('modal-post').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
         </div>
         <table class="table ms-3 mt-4 text-light">
             <thead>
@@ -245,7 +245,8 @@ if (isset($_POST['Update'])) {
             </tbody>
             <?php }?>
         </table>
-        <div class="modal fade" id="modal-task">
+    </div>
+    <div class="modal fade" id="modal-post">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form method="POST" id="postform">
@@ -253,44 +254,49 @@ if (isset($_POST['Update'])) {
                             <h5 class="modal-title">Add Post</h5>
                             <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
                         </div>
-                        <div class="modal-body">
-                            <input type="hidden" id="postId" name = 'postId'>
-                            <input type="hidden" id="datetime" name = 'datetime' value="<?php echo date("Y/m/d h:i:sa"); ?>">
-                            <input type="hidden" id="user" name = 'user' value="<?php if(isset($_SESSION["id"]))echo $_SESSION["id"]; ?>">
-                            <div class="mb-3">
-                                <label class="col-form-label">Title:</label>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title">
-                            </div>
-                            <div class="mb-3">
-                                <label for="message-text" class="col-form-label">Article:</label>
-                                <textarea class="form-control" id="message-text" name="article"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                    <label class="form-label">Category</label name priority>
-                                    <select class="form-select" id="task-priority" name="categorySelect">
-                                        <option value="">Please select</option>
-                                    <?php  for($i=0;$i<count($rowscategory);$i++) {?>
-                                        <option value="<?= $rowscategory[$i]['id']?>"><?php echo $rowscategory[$i]['categ'];?></option>
-                                        <?php } ?>
-                                    </select>
+                        <div id="modal-body">
+                            <div class="modal-body" id="">
+                                <input type="hidden" id="postId" name = 'postId[]'>
+                                <input type="hidden" id="datetime" name = 'datetime[]' value="<?php echo date("Y/m/d h:i:sa"); ?>">
+                                <input type="hidden" id="user" name = 'user[]' value="<?php if(isset($_SESSION["id"]))echo $_SESSION["id"]; ?>">
+                                <div class="mb-3">
+                                    <label class="col-form-label">Title:</label>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title[]">
                                 </div>
-                            <div class="mb-3">
-                                <label class="form-label">Image</label>
-                                <input type="file" class="form-control" id="image" name ='image'/>
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label">Article:</label>
+                                    <textarea class="form-control" id="message-text" name="article[]"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                        <label class="form-label">Category</label name priority>
+                                        <select class="form-select" id="task-priority" name="categorySelect[]">
+                                            <option value="">Please select</option>
+                                        <?php  for($i=0;$i<count($rowscategory);$i++) {?>
+                                            <option value="<?= $rowscategory[$i]['id']?>"><?php echo $rowscategory[$i]['categ'];?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Image</label>
+                                    <input type="file" class="form-control" id="image" name ='image[]'/>
+                                </div>
                             </div>
+                        </div>
+                        <div id="newFormContainer">
+
                         </div>
                         <div class="modal-footer">
                             <a href="#" class="btn btn-white" data-bs-dismiss="modal">Cancel</a>
+                            <button type="button" name="save" class="btn btn-primary task-action-btn ms-1" id="addPost" onclick="newForm()">Add Post</button>
                             <button type="submit" name="save" class="btn btn-primary task-action-btn ms-1" id="task-save-btn">Save</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
     <div id="adminsPosts">
         <div class="d-flex justify-content-end mt-3">
-            <a href="#modal-task" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
+            <a href="#modal-post" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
         </div>
         <table class="table ms-3 mt-4 text-light">
             <thead>

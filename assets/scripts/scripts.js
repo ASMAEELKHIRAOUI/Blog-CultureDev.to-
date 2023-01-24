@@ -49,3 +49,7 @@ function deletePost(id) {
     })
 }
 if(window.location.href.includes("update")) hideDashboard();
+
+function newForm(){
+    document.getElementById("newFormContainer").innerHTML+=document.getElementById("modal-body").innerHTML
+}
