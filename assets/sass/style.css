@@ -16,7 +16,6 @@
 #signup, #signin {
   border: 1px solid rgb(0, 0, 90);
   border-radius: 20px;
-  padding: 35px;
   box-shadow: 0 8px 32px 0 rgb(0, 0, 90);
 }
 
@@ -162,4 +161,9 @@
   .navbar {
     width: 156vw;
   }
+}
+.parsley-required {
+  color: red;
+  list-style: none;
+  margin-left: -5%;
 }/*# sourceMappingURL=style.css.map */

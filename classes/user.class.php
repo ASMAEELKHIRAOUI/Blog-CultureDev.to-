@@ -106,6 +106,7 @@ class Admin extends User {
         if (isset($_SESSION['name'])) {
             session_destroy();
             unset($_SESSION['name']);
+            header('location:../pages/sigin.php');
         }
     }
 

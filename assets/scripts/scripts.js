@@ -10,6 +10,9 @@ let gotoadminspost=document.getElementById('gotoadminspost')
 let postsUpdate=document.getElementById('postsUpdate')
 let dashboard=document.getElementById('dashboard')
 
+
+
+
 category.style.display = 'none';
 adminsPosts.style.display = 'none';
 postsUpdate.style.display = 'none';
@@ -53,3 +56,5 @@ if(window.location.href.includes("update")) hideDashboard();
 function newForm(){
     document.getElementById("newFormContainer").innerHTML+=document.getElementById("modal-body").innerHTML
 }
+
+

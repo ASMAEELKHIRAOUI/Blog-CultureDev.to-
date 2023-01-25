@@ -59,12 +59,25 @@ if(isset($_GET['delete'])){
 }
 
 if (isset($_POST['Update'])) {
+    $updatePost = new Database();
     $id = $_POST['updateId'];
     $title = $_POST['updateTitle'];
     $article = $_POST['updateArticle'];
     $categ = $_POST['updateCategory'];
-    $updatePost = new Database();
-    $updatePost->update('post',['title'=>$title,'article'=>$article,'category'=>$categ],"id='$id'");
+    $imgname = $_FILES['image']['name'];
+    if(!empty($imgname)){
+        $ext = pathinfo($imgname, PATHINFO_EXTENSION);
+        $new_imgname = time().'.'.$ext;
+        move_uploaded_file($_FILES['image']['tmp_name'], './assets/img/'.$new_imgname);
+        $updatePost->update('post',['title'=>$title,'article'=>$article,'image'=>$imgname,'category'=>$categ],"id='$id'");
+    }
+    else{
+        $new_imgname = '';
+        $updatePost->update('post',['title'=>$title,'article'=>$article,'category'=>$categ],"id='$id'");
+    }
+
+    
+    
 }
 
 ?>
@@ -82,10 +95,10 @@ if (isset($_POST['Update'])) {
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <script defer src="https://parsleyjs.org/dist/parsley.min.js"></script>
     <link rel="stylesheet" href="../assets/sass/style.css"/>
     
     <title>CultureDev - Dashboard</title>
-    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> -->
 
 </head>
 <body class="dashboard">
@@ -238,7 +251,7 @@ if (isset($_POST['Update'])) {
             <tbody>
             <?php for($i=0;$i<count($rowspost);$i++) {?>
             <tr>
-                <td class="col-1"><?php echo $rowspost[$i]['image'];?></td>
+                <td class="col-1"><img src="../assets/img/<?php echo $rowspost[$i]['image'];?>" style="width:50px;height:50px;"></td>
                 <td class="col-2"><?php foreach($rowsuser as $users){if($rowspost[$i]['user']==$users['id'])echo $users['username'];}?></td>
                 <td class="col-2"><?php echo $rowspost[$i]['datetime'];?></td>
                 <td class="col-2"><?php echo $rowspost[$i]['title'];?></td>
@@ -251,7 +264,7 @@ if (isset($_POST['Update'])) {
     <div class="modal fade" id="modal-post">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form method="POST" id="postform">
+                    <form method="POST" id="postform" enctype="multipart/form-data" data-parsley-validate>
                         <div class="modal-header">
                             <h5 class="modal-title">Add Post</h5>
                             <a href="#" class="btn-close" data-bs-dismiss="modal"></a>
@@ -263,15 +276,15 @@ if (isset($_POST['Update'])) {
                                 <input type="hidden" id="user" name = 'user[]' value="<?php if(isset($_SESSION["id"]))echo $_SESSION["id"]; ?>">
                                 <div class="mb-3">
                                     <label class="col-form-label">Title:</label>
-                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title[]">
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" name="title[]" data-parsley-trigger="keyup" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="message-text" class="col-form-label">Article:</label>
-                                    <textarea class="form-control" id="message-text" name="article[]"></textarea>
+                                    <textarea class="form-control" id="message-text" name="article[]" data-parsley-trigger="keyup" required></textarea>
                                 </div>
                                 <div class="mb-3">
                                         <label class="form-label">Category</label name priority>
-                                        <select class="form-select" id="task-priority" name="categorySelect[]">
+                                        <select class="form-select" id="task-priority" name="categorySelect[]" required>
                                             <option value="">Please select</option>
                                         <?php  for($i=0;$i<count($rowscategory);$i++) {?>
                                             <option value="<?= $rowscategory[$i]['id']?>"><?php echo $rowscategory[$i]['categ'];?></option>
@@ -280,7 +293,7 @@ if (isset($_POST['Update'])) {
                                     </div>
                                 <div class="mb-3">
                                     <label class="form-label">Image</label>
-                                    <input type="file" class="form-control" id="image" name ='image[]'/>
+                                    <input type="file" class="form-control" id="image" name ='image[]' required/>
                                 </div>
                             </div>
                         </div>
@@ -313,7 +326,7 @@ if (isset($_POST['Update'])) {
             </thead>
             <?php for($i=0;$i<count($rowsadminspost);$i++) {?>
             <tbody>
-                <th class="col-1"><?php echo $rowsadminspost[$i]['image'];?></th>
+                <th class="col-1"><img src="../assets/img/<?php echo $rowspost[$i]['image'];?>" style="width:50px;height:50px;"></th>
                 <th class="col-2"><?php echo $rowsadminspost[$i]['datetime'];?></th>
                 <th class="col-2"><?php echo $rowsadminspost[$i]['title'];?></th>
                 <th class="col-3"><?php echo $rowsadminspost[$i]['article'];?></th>
@@ -397,10 +410,7 @@ if (isset($_POST['Update'])) {
       </div>
     </div>
   </div>
-</div
-<!-- JavaScript bootstrap -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>

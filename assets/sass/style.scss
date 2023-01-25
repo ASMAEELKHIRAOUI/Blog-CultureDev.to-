@@ -19,7 +19,7 @@ $light : rgba(80, 165, 204, 1);
 #signup, #signin{
     border: 1px solid $dark;
     border-radius: 20px;
-    padding: 35px;
+    // padding: 35px;
     box-shadow: 0 8px 32px 0 $dark;
 }
 
@@ -181,4 +181,9 @@ background: linear-gradient(180deg, rgba(0,0,90,1) 0%, rgba(80,165,204,1) 42%, r
     .navbar{
         width: 156vw;
     }
+}
+.parsley-required{
+    color: red;
+    list-style: none;
+    margin-left: -5%;
 }

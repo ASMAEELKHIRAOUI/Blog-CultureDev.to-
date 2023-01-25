@@ -30,17 +30,20 @@ $objet->signup();
                 <p class="signin text-center"> SIGN UP </p>
                 <div class="email pt-3">
                     <p>User Name</p>
-                    <input class="input form form-control" type="text" name="username">
+                    <input class="input form form-control" type="text" name="username" id="username">
+                    <small class=""></small>
                 </div>
                 <div class="email pt-3">
                     <p>Email Address</p>
-                    <input class="input form form-control" type="email" name="email">
+                    <input class="input form form-control" type="email" name="email" id="email">
+                    <small class=""></small>
                 </div>
                 <div class="password pt-3">
                     <p>Password</p>
-                    <input class="input form form-control" type="password" name="password">
+                    <input class="input form form-control" type="password" name="password" id="password">
+                    <small class=""></small>
                 </div>
-                <div class="row justify-content-center mt-3"><button class="btn signing" name="signup">SIGN UP</button></div>
+                <div class="row justify-content-center mt-3"><button class="btn signing" name="signup" id="signin">SIGN UP</button></div>
                 <div class="privacy text-center mt-4">
                     By clicking on "SIGN UP" you agree to <a class="link" href="">Privacy Policy</a>
                 </div>
@@ -50,3 +53,4 @@ $objet->signup();
 </div>
 </body>
 </html>
+<script src="../assets/scripts/sign.js"></script>
