@@ -154,6 +154,10 @@
   font-weight: bold;
 }
 
+#posts, #adminsPosts {
+  color: rgb(0, 0, 90);
+}
+
 @media only screen and (max-width: 600px) {
   .navbar {
     width: 156vw;

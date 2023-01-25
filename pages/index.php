@@ -78,10 +78,15 @@ if (isset($_POST['Update'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/sass/style.css"/>
+    
     <title>CultureDev - Dashboard</title>
+    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> -->
+
 </head>
 <body class="dashboard">
     <header>
@@ -92,10 +97,6 @@ if (isset($_POST['Update'])) {
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarColor01">
-                    <form class="d-flex">
-                        <input class="input form-control me-sm-2 mt-1 search" type="text" placeholder="Enter keyword">
-                        <button class="btn me-3 text-secondary bg-light btn-rounded rounded-pill h-50" type="submit"><i class="bi bi-search"></i></button>
-                    </form>
                     <div class="btn-group">
                         <img src="../assets/img/ppl.png" class="pp">
                         <button type="button" class="btn dropdown-toggle text-light" data-bs-toggle="dropdown" aria-expanded="false">
@@ -221,9 +222,9 @@ if (isset($_POST['Update'])) {
     </div>
     <div id="posts">
         <div class="d-flex justify-content-end mt-3">
-            <a href="#modal-post" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('modal-post').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
+            <a href="#modal-post" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill mb-3" onclick="document.getElementById('modal-post').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
         </div>
-        <table class="table ms-3 mt-4 text-light">
+        <table class="table ms-3 mt-4" id="table">
             <thead>
                 <tr class="line">
                     <th class="col-1"></th>
@@ -234,16 +235,17 @@ if (isset($_POST['Update'])) {
                     <th class="col-2">Category</th>
                 </tr>
             </thead>
-            <?php for($i=0;$i<count($rowspost);$i++) {?>
             <tbody>
-                <th class="col-1"><?php echo $rowspost[$i]['image'];?></th>
-                <th class="col-2"><?php foreach($rowsuser as $users){if($rowspost[$i]['user']==$users['id'])echo $users['username'];}?></th>
-                <th class="col-2"><?php echo $rowspost[$i]['datetime'];?></th>
-                <th class="col-2"><?php echo $rowspost[$i]['title'];?></th>
-                <th class="col-3"><?php echo $rowspost[$i]['article'];?></th>
-                <th class="col-2"><?php foreach($rowscategory as $categoryy){if($rowspost[$i]['category']==$categoryy['id'])echo $categoryy['categ'];}?></th>
-            </tbody>
-            <?php }?>
+            <?php for($i=0;$i<count($rowspost);$i++) {?>
+            <tr>
+                <td class="col-1"><?php echo $rowspost[$i]['image'];?></td>
+                <td class="col-2"><?php foreach($rowsuser as $users){if($rowspost[$i]['user']==$users['id'])echo $users['username'];}?></td>
+                <td class="col-2"><?php echo $rowspost[$i]['datetime'];?></td>
+                <td class="col-2"><?php echo $rowspost[$i]['title'];?></td>
+                <td class="col-3"><?php echo $rowspost[$i]['article'];?></td>
+                <td class="col-2"><?php foreach($rowscategory as $categoryy){if($rowspost[$i]['category']==$categoryy['id'])echo $categoryy['categ'];}?></th>
+            </tr>
+            <?php }?></tbody>
         </table>
     </div>
     <div class="modal fade" id="modal-post">
@@ -298,7 +300,7 @@ if (isset($_POST['Update'])) {
         <div class="d-flex justify-content-end mt-3">
             <a href="#modal-post" data-bs-toggle="modal" class="add-btn btn btn-rounded rounded-pill" onclick="document.getElementById('form').reset()"><i class="bi bi-plus me-2 ms-n2 text-success-900"></i> Add Post</a>
         </div>
-        <table class="table ms-3 mt-4 text-light">
+        <table class="table ms-3 mt-4">
             <thead>
                 <tr class="line">
                     <th class="col-1"></th>
@@ -318,7 +320,7 @@ if (isset($_POST['Update'])) {
                 <th class="col-1"><?php foreach($rowscategory as $categoryy){if($rowspost[$i]['category']==$categoryy['id'])echo $categoryy['categ'];}?></th>
                 <th class="col-1">
                     <div class="d-flex">
-                        <a href="index.php?update=<?php echo $i; ?>" class="update"><i class="bi bi-pencil-square text-primary mt-2 fs-4"></i></a>
+                        <a href="index.php?update=<?php echo $i; ?>" class="update mt-2"><i class="bi bi-pencil-square text-primary mt-2 fs-4"></i></a>
                         <button data-bs-toggle="modal" data-bs-target="#deletePost" data-id="<?php echo $rowsadminspost[$i]['id']; ?>"  id="del" class="btn btn-sm ms-3" onclick="deletePost(<?= $rowsadminspost[$i]['id']?>)"><i class="bi bi-trash3 text-danger ms-2 mt-2 fs-4"></i></button>
                     </div>
                 </th>
@@ -395,8 +397,31 @@ if (isset($_POST['Update'])) {
       </div>
     </div>
   </div>
-</div>
+</div
+<!-- JavaScript bootstrap -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="../assets/scripts/scripts.js"></script>
+    <script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+      "pagingType":"full_numbers",
+      "lengthMenu":[
+        [10, 25, 50, -1],
+        [10, 25, 50, "All"]
+    ],
+    responsive:true,
+    language:{
+      search: "",
+      searchPlaceholder:"Enter Keyword",
+    }
+    });
+});
+</script>
 </body>
 </html>

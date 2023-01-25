@@ -173,6 +173,10 @@ background: linear-gradient(180deg, rgba(0,0,90,1) 0%, rgba(80,165,204,1) 42%, r
     font-weight: bold;
 }
 
+#posts , #adminsPosts{
+    color: $dark;
+}
+
 @media only screen and (max-width: 600px) {
     .navbar{
         width: 156vw;

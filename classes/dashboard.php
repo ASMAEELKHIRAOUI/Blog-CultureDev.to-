@@ -104,7 +104,20 @@ include_once 'database.php';
                     $category = $_POST['categorySelect'][$i];
                     $user = $_POST['user'][$i];
                     $datetime = $_POST['datetime'][$i];
-                    $img = $_POST['image'][$i];
+                    // $img = $_POST['image'][$i];
+                    $img = $_FILES['image']['name'];
+
+                    if(!empty($imgname)){
+                        $ext = pathinfo($img, PATHINFO_EXTENSION);
+                        $new_img = time().'.'.$ext;
+                        move_uploaded_file($_FILES['image']['tmp_name'], './assets/img/'.$new_img);
+                    }
+                    else{
+                        $new_img = '';
+                    }
+
+
+
                     $post = new Database();
                     $post->insert('post',['user'=>$user,'title'=>$title,'article'=>$article,'image'=>$img,'category'=>$category,'datetime'=>$datetime]);
                 }
