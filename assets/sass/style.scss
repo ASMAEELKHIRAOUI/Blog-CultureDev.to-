@@ -8,6 +8,7 @@ $light : rgba(80, 165, 204, 1);
     background-size: cover;
     height: 97vh;
     width: 98vw;
+    
 }
 .signin{
     color: $light;
@@ -19,7 +20,7 @@ $light : rgba(80, 165, 204, 1);
 #signup, #signin{
     border: 1px solid $dark;
     border-radius: 20px;
-    // padding: 35px;
+    margin-left: 2%;
     box-shadow: 0 8px 32px 0 $dark;
 }
 

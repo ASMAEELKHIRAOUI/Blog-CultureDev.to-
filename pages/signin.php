@@ -23,7 +23,7 @@ if(isset($_POST['signin'])){
     <div class="col-lg-4"></div>
     <div id="signup" class="col-lg-3">
         <div>
-            <form action="" method="POST">
+            <form action="" method="POST" class="p-5">
                 <p class="signin text-center"> SIGN IN </p>
                 <div class="email pt-3">
                     <p>Email Address</p>

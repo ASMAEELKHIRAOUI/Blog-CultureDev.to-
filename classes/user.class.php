@@ -17,7 +17,7 @@ abstract class User extends Database{
     }
 
     public function setusername($username){
-        $this->username = $fn;
+        $this->username = $username;
     }
     public function setPassword($password){
         $this->password = $password;
@@ -72,7 +72,7 @@ class Admin extends User {
 
             $sql1 = "INSERT INTO admin values(NULL,?,?,?)";
             $put = $conn->connection()->prepare($sql1);
-            $put->execute([$this->username, $this->email, $this->password]);
+            $put->execute([$this->email, $this->username, $this->password]);
 
             echo"<script>alert('successfully');document.location='../pages/signin.php'</script>";
     
@@ -92,7 +92,6 @@ class Admin extends User {
         $data = $stmt -> fetch(PDO::FETCH_ASSOC);
         
         if ($stmt->rowCount() > 0) {
-        
             $_SESSION['name'] = $data['username'];
             $_SESSION['id'] = $data['id'];
             echo"<script>alert('successfully');document.location='../pages/index.php'</script>";
@@ -106,7 +105,7 @@ class Admin extends User {
         if (isset($_SESSION['name'])) {
             session_destroy();
             unset($_SESSION['name']);
-            header('location:../pages/sigin.php');
+            header('location:../pages/signin.php');
         }
     }
 
